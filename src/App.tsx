@@ -5,6 +5,7 @@ import UsersList from './components/users/UsersList';
 import Profile from './pages/Profile';
 import Counter from './components/jorge/counter';
 import UsersPage from './pages/UsersPage';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/jorge" element={<Counter />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/profile/:id" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );
