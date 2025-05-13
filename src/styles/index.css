@@ -1,0 +1,73 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #23272D;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid black;
+  padding: 0.3rem 0.87rem !important;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #ffff !important;
+	color: #ffff !important;
+	box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%) !important;
+}
+.MuiButton-root {
+	background-color: #47b8d7 !important;
+	color: black !important;
+}
+.MuiButton-root.Mui-disabled{
+	opacity: 0.5 !important;
+}
+.MuiButton-root.Mui-disabled{
+	color:light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3)) !important;
+
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #ffff;
+    background-color: #23272D;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #47b8d7;
+  }
+}
