@@ -4,3 +4,7 @@ export interface User {
   phone: string;
   email: string;
 }
+
+export interface CreateUser extends User {
+  color?: string;
+}

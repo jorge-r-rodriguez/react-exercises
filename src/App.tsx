@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, Outlet } from 'react-router-dom';
 import './styles/App.css';
 import Pruebas from './pages/Pruebas';
 import UsersList from './components/users/UsersList';
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <nav>
         <Link to="/">Home</Link> | <Link to="/users">Usuarios</Link> | <Link to="/pruebas">Pruebas</Link> |{' '}
-        <Link to="/jorge">Jorge</Link> | <Link to="/users">Usuarios</Link>
+        <Link to="/jorge/users">Jorge</Link>
       </nav>
       <hr />
       <Routes>
@@ -20,9 +20,11 @@ function App() {
         <Route path="/pruebas" element={<Pruebas />} />
         <Route path="/users" element={<UsersList />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/jorge" element={<Counter />} />
-        <Route path="/users" element={<UsersPage />} />
-        <Route path="/profile/:id" element={<UserProfile />} />
+        <Route path="/jorge" element={<Outlet />}>
+          <Route path="counter" element={<Counter />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="profile/:id" element={<UserProfile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

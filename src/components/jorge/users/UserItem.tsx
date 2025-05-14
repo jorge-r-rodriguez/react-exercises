@@ -9,13 +9,13 @@ interface UserItemProps {
 const UserItem: React.FC<UserItemProps> = ({ user }) => {
   return (
     <li style={{ marginBottom: '1rem' }}>
-      <strong>{user.name}</strong>
+      <strong>{user.name ?? ''}</strong>
       <br />
-      Teléfono: {user.phone}
+      Teléfono: {user.phone ?? ''}
       <br />
-      Email: {user.email}
+      Email: {user?.email}
       <br />
-      <Link to={`/profile/${user.id}`}>
+      <Link to={`/jorge/profile/${user.id}`}>
         <button>Ver perfil</button>
       </Link>
     </li>

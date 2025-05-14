@@ -1,56 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { User } from '../interfaces/users/User';
+import { CreateUser } from '../interfaces/users/User';
 
 const UserProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<CreateUser | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
-  // Campos editables
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!id) return;
+    if (!Number(id)) navigate('/jorge/users');
     setLoading(true);
 
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then((res) => res.json())
-      .then((data: User) => {
+      .then((data: CreateUser) => {
         setUser(data);
-        setName(data.name);
-        setPhone(data.phone);
-        setEmail(data.email);
       })
       .catch((err) => {
         console.error('Error cargando usuario:', err);
-        setUser(null);
       })
       .finally(() => setLoading(false));
   }, [id]);
 
   const handleSave = () => {
-    const updatedUser = { name, phone, email };
-
     // Simula de guardado
+    setLoadingCreate(true);
     fetch(`https://jsonplaceholder.typicode.com/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedUser),
+      body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log('Datos guardados:', data);
+        setLoadingCreate(false);
         navigate('/jorge/users');
       })
       .catch((err) => {
         console.error('Error al guardar usuario:', err);
+        setLoadingCreate(false);
       });
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
   if (loading) return <p>Cargando perfil...</p>;
@@ -64,21 +62,25 @@ const UserProfile: React.FC = () => {
       <div style={{ marginBottom: '1rem' }}>
         <label>
           Nombre:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" value={user.name} name="name" onChange={handleChange} />
         </label>
         <br />
         <label>
           Teléfono:
-          <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <input type="text" value={user.phone} name="phone" onChange={handleChange} />
         </label>
         <br />
         <label>
           Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="email" value={user.email} name="email" onChange={handleChange} />
+        </label>
+        <label>
+          Color:
+          <input type="text" value={user?.color} name="color" onChange={handleChange} />
         </label>
         <br />
         <button onClick={handleSave} style={{ marginTop: '1rem' }}>
-          Guardar
+          {loadingCreate ? 'Cargando...' : 'Guardar'}
         </button>
       </div>
 
@@ -89,6 +91,7 @@ const UserProfile: React.FC = () => {
       <p>Nombre: {user.name}</p>
       <p>Teléfono: {user.phone}</p>
       <p>Email: {user.email}</p>
+      <p>Color: {user?.color}</p>
     </div>
   );
 };

@@ -13,7 +13,6 @@ const UsersPage: React.FC = () => {
       .then((data: User[]) => setUsers(data))
       .catch((err) => {
         console.error('Error cargando usuarios:', err);
-        setUsers([]);
       })
       .finally(() => setLoading(false));
   };
@@ -29,7 +28,13 @@ const UsersPage: React.FC = () => {
       <button onClick={loadUsers} disabled={loading}>
         {loading ? 'Cargando...' : 'Volver a cargar'}
       </button>
-      {loading ? <p>Cargando usuarios...</p> : <UsersList users={users} />}
+      {loading ? (
+        <p>Cargando usuarios...</p>
+      ) : users.length > 0 ? (
+        <UsersList users={users} />
+      ) : (
+        <p>No hay resultados</p>
+      )}
     </div>
   );
 };
